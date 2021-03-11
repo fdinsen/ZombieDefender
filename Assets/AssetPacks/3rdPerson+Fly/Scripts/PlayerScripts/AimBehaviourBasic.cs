@@ -1,5 +1,6 @@
 ﻿using UnityEngine;
 using System.Collections;
+using UnityEngine.Animations.Rigging;
 
 // AimBehaviour inherits from GenericBehaviour. This class corresponds to aim and strafe behaviour.
 public class AimBehaviourBasic : GenericBehaviour
@@ -9,6 +10,8 @@ public class AimBehaviourBasic : GenericBehaviour
 	public float aimTurnSmoothing = 0.15f;                                // Speed of turn response when aiming to match camera facing.
 	public Vector3 aimPivotOffset = new Vector3(0.5f, 1.2f,  0f);         // Offset to repoint the camera when aiming.
 	public Vector3 aimCamOffset   = new Vector3(0f, 0.4f, -0.7f);         // Offset to relocate the camera when aiming.
+	[SerializeField] TwoBoneIKConstraint armMover;
+	[SerializeField] float armMoveSpeed = 2f;
 
 	private int aimBool;                                                  // Animator variable related to aiming.
 	private bool aim;                                                     // Boolean to determine whether or not the player is aiming.
@@ -62,6 +65,7 @@ public class AimBehaviourBasic : GenericBehaviour
 			int signal = 1;
 			aimCamOffset.x = Mathf.Abs(aimCamOffset.x) * signal;
 			aimPivotOffset.x = Mathf.Abs(aimPivotOffset.x) * signal;
+			StartCoroutine(MoveArmUp());
 			yield return new WaitForSeconds(0.1f);
 			behaviourManager.GetAnim.SetFloat(speedFloat, 0);
 			// This state overrides the active one.
@@ -76,6 +80,7 @@ public class AimBehaviourBasic : GenericBehaviour
 		yield return new WaitForSeconds(0.3f);
 		behaviourManager.GetCamScript.ResetTargetOffsets();
 		behaviourManager.GetCamScript.ResetMaxVerticalAngle();
+		StartCoroutine(MoveArmDown());
 		yield return new WaitForSeconds(0.05f);
 		behaviourManager.RevokeOverridingBehaviour(this);
 	}
@@ -131,5 +136,26 @@ public class AimBehaviourBasic : GenericBehaviour
 										 Screen.height / 2 - (crosshair.height * 0.5f),
 										 crosshair.width, crosshair.height), crosshair);
 		}
+	}
+
+	private IEnumerator MoveArmUp() {
+		while(armMover.weight < 1) {
+			armMover.weight += (armMoveSpeed * Time.deltaTime);
+			yield return null;
+        }
+		yield return null;
+    }
+
+	private IEnumerator MoveArmDown() {
+		while (armMover.weight > 0) {
+			armMover.weight -= (armMoveSpeed * Time.deltaTime);
+			yield return null;
+		}
+		yield return null;
+	}
+
+	public bool isAiming() 
+	{
+		return aim;
 	}
 }
