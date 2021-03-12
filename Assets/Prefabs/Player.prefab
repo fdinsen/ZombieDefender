@@ -7334,6 +7334,8 @@ GameObject:
   - component: {fileID: 568518975}
   - component: {fileID: 568518976}
   - component: {fileID: 568518977}
+  - component: {fileID: 1627823179}
+  - component: {fileID: 1627823189}
   m_Layer: 0
   m_Name: Player
   m_TagString: Untagged
@@ -7435,6 +7437,7 @@ MonoBehaviour:
   aimCamOffset: {x: 0, y: 0.4, z: -0.7}
   armMover: {fileID: 1121947371}
   armMoveSpeed: 2
+  playerHealth: {fileID: 1627823179}
 --- !u!114 &5999113504879233890
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -7454,6 +7457,7 @@ MonoBehaviour:
   jumpButton: Jump
   jumpHeight: 1.5
   jumpIntertialForce: 10
+  playerHealth: {fileID: 1627823179}
 --- !u!114 &5999113504879233891
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -7598,6 +7602,39 @@ MonoBehaviour:
   range: 100
   muzzleFlash: {fileID: 1462696429}
   impactEffect: {fileID: 100006, guid: 0438351a6e6422d43a09930e9be00ee9, type: 3}
+--- !u!114 &1627823179
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6881579546842068586}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a0612637b35020c48bebf74a4ffd5d3b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  health: 100
+  maxHealth: 100
+  animator: {fileID: 156416915560003242}
+  moveBehaviour: {fileID: 5999113504879233890}
+  aimBehaviour: {fileID: 5999113504879233889}
+--- !u!114 &1627823189
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6881579546842068586}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9f5c552c9b4932a4e8d5b2731e0db0bf, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  healthText: {fileID: 0}
+  healthFill: {fileID: 0}
+  useHSVColor: 1
+  playerHealth: {fileID: 1627823179}
 --- !u!1 &6974934365489735222
 GameObject:
   m_ObjectHideFlags: 0

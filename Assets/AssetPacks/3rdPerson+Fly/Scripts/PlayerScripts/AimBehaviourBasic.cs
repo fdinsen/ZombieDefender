@@ -13,6 +13,8 @@ public class AimBehaviourBasic : GenericBehaviour
 	[SerializeField] TwoBoneIKConstraint armMover;
 	[SerializeField] float armMoveSpeed = 2f;
 
+	[SerializeField] private PlayerHealth playerHealth;
+
 	private int aimBool;                                                  // Animator variable related to aiming.
 	private bool aim;                                                     // Boolean to determine whether or not the player is aiming.
 
@@ -26,28 +28,36 @@ public class AimBehaviourBasic : GenericBehaviour
 	// Update is used to set features regardless the active behaviour.
 	void Update ()
 	{
-		// Activate/deactivate aim by input.
-		if (Input.GetAxisRaw(aimButton) != 0 && !aim)
-		{
-			StartCoroutine(ToggleAimOn());
-		}
-		else if (aim && Input.GetAxisRaw(aimButton) == 0)
-		{
+		if(playerHealth.GetHealth() > 0)
+        {
+			// Activate/deactivate aim by input.
+			if (Input.GetAxisRaw(aimButton) != 0 && !aim)
+			{
+				StartCoroutine(ToggleAimOn());
+			}
+			else if (aim && Input.GetAxisRaw(aimButton) == 0)
+			{
+				StartCoroutine(ToggleAimOff());
+			}
+
+			// No sprinting while aiming.
+			canSprint = !aim;
+
+			// Toggle camera aim position left or right, switching shoulders.
+			if (aim && Input.GetButtonDown(shoulderButton))
+			{
+				aimCamOffset.x = aimCamOffset.x * (-1);
+				aimPivotOffset.x = aimPivotOffset.x * (-1);
+			}
+
+			// Set aim boolean on the Animator Controller.
+			behaviourManager.GetAnim.SetBool(aimBool, aim);
+		}else
+        {
+			behaviourManager.GetAnim.SetBool(aimBool, false);
 			StartCoroutine(ToggleAimOff());
-		}
-
-		// No sprinting while aiming.
-		canSprint = !aim;
-
-		// Toggle camera aim position left or right, switching shoulders.
-		if (aim && Input.GetButtonDown (shoulderButton))
-		{
-			aimCamOffset.x = aimCamOffset.x * (-1);
-			aimPivotOffset.x = aimPivotOffset.x * (-1);
-		}
-
-		// Set aim boolean on the Animator Controller.
-		behaviourManager.GetAnim.SetBool (aimBool, aim);
+        }
+		
 	}
 
 	// Co-rountine to start aiming mode with delay.
