@@ -10,6 +10,7 @@ public class MoveBehaviour : GenericBehaviour
 	public string jumpButton = "Jump";              // Default jump button.
 	public float jumpHeight = 1.5f;                 // Default jump height.
 	public float jumpIntertialForce = 10f;          // Default horizontal inertial force when jumping.
+	public PlayerHealth playerHealth;
 
 	private float speed, speedSeeker;               // Moving speed.
 	private int jumpBool;                           // Animator variable related to jumping.
@@ -44,11 +45,14 @@ public class MoveBehaviour : GenericBehaviour
 	// LocalFixedUpdate overrides the virtual function of the base class.
 	public override void LocalFixedUpdate()
 	{
-		// Call the basic movement manager.
-		MovementManagement(behaviourManager.GetH, behaviourManager.GetV);
+		if(playerHealth.GetHealth() > 0)
+        {
+			// Call the basic movement manager.
+			MovementManagement(behaviourManager.GetH, behaviourManager.GetV);
 
-		// Call the jump manager.
-		JumpManagement();
+			// Call the jump manager.
+			JumpManagement();
+		}
 	}
 
 	// Execute the idle and walk/run jump movements.
