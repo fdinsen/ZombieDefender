@@ -12,6 +12,17 @@ public class HealthDisplay : MonoBehaviour
     [SerializeField] private bool useHSVColor = false;
     [SerializeField] private PlayerHealth playerHealth;
 
+    private void Start()
+    {
+        if(healthFill == null)
+        {
+            Debug.LogError("Health Fill is not set to a health bar in HealthDisplay.");
+        }
+        if(healthText == null)
+        {
+            Debug.LogError("Health Text is not set to a health TextMeshPro in HealthDisplay");
+        }
+    }
 
     private void FixedUpdate()
     {
