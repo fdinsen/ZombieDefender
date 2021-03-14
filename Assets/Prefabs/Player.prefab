@@ -7338,7 +7338,7 @@ GameObject:
   - component: {fileID: 1627823189}
   m_Layer: 0
   m_Name: Player
-  m_TagString: Untagged
+  m_TagString: Player
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -7471,7 +7471,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7d91044bddee1594cb64cddcbb5e76b9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  playerCamera: {fileID: 7001746366428375920}
+  playerCamera: {fileID: 0}
   turnSmoothing: 0.06
   sprintFOV: 100
   sprintButton: Sprint
