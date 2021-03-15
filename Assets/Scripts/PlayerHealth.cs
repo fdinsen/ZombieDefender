@@ -9,8 +9,11 @@ public class PlayerHealth : MonoBehaviour
     [SerializeField] private Animator animator;
     [SerializeField] private Rigidbody rigid;
 
+    private RoundHandler roundHandler = null;
+
     private void Start()
     {
+        roundHandler = FindObjectOfType<RoundHandler>();
     }
 
     private void Update()
@@ -57,6 +60,7 @@ public class PlayerHealth : MonoBehaviour
     private IEnumerator Die()
     {
         animator.SetBool("Dead", true);
+        roundHandler.ZombieDance();
         yield return new WaitForSeconds(2f);
     }
 

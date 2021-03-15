@@ -7603,6 +7603,9 @@ MonoBehaviour:
   range: 100
   muzzleFlash: {fileID: 1462696429}
   impactEffect: {fileID: 100006, guid: 0438351a6e6422d43a09930e9be00ee9, type: 3}
+  hittableLayers:
+    serializedVersion: 2
+    m_Bits: 9
 --- !u!114 &1627823179
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -7626,7 +7629,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 6881579546842068586}
-  m_Enabled: 0
+  m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 9f5c552c9b4932a4e8d5b2731e0db0bf, type: 3}
   m_Name: 

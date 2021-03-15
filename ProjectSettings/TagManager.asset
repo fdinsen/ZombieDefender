@@ -6,14 +6,15 @@ TagManager:
   tags:
   - Enemy
   - ZombieSpawner
+  - Text
   layers:
   - Default
   - TransparentFX
   - Ignore Raycast
-  - 
+  - Enemy
   - Water
   - UI
-  - 
+  - Limb
   - 
   - 
   - 

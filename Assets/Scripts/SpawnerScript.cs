@@ -10,9 +10,10 @@ public class SpawnerScript : MonoBehaviour {
         _position = gameObject.transform.position;
     }
 
-    public void SpawnZombie(GameObject zombie, int health) {
+    public GameObject SpawnZombie(GameObject zombie, int health) {
         GameObject go = Instantiate(zombie, _position, Quaternion.identity) as GameObject;
         go.GetComponent<ZombieHandler>().SetHealth(health);
+        return go;
     }
 
 }

@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using TMPro;
 using UnityEngine;
 
 public class RoundHandler : MonoBehaviour {
@@ -13,9 +14,14 @@ public class RoundHandler : MonoBehaviour {
     [SerializeField] private int _bossRound; // Every x round, default: 5
     private int _zombieBaseHealth;
     private List<GameObject> _zombieSpawners = new List<GameObject>();
+    private TMP_Text textField;
 
     // Start is called before the first frame update
     public void Start() {
+        textField = GameObject.FindGameObjectWithTag("Text").GetComponent<TMP_Text>();
+        textField.enabled = false;
+
+
         _zombieSpawners.AddRange(GameObject.FindGameObjectsWithTag("ZombieSpawner"));
         _zombieBaseHealth = 50;
 
@@ -34,11 +40,8 @@ public class RoundHandler : MonoBehaviour {
         if (_bossRound <= 0) {
             _bossRound = 5;
         }
-    }
 
-    // Update is called once per frame
-    private void Update() {
-        
+        StartCoroutine(BeginNewRound(1));
     }
 
     /* ##################################################
@@ -47,6 +50,7 @@ public class RoundHandler : MonoBehaviour {
 
     ################################################## */
 
+    private List<GameObject> _zombiesToSpawn = new List<GameObject>();
     private List<GameObject> _zombies = new List<GameObject>();
 
     private int ZombiesAlive() {
@@ -54,12 +58,10 @@ public class RoundHandler : MonoBehaviour {
 
         foreach (GameObject zombie in _zombies) {
             bool zombieIsAlive = zombie.GetComponent<ZombieHandler>().IsAlive();
-            
             if(zombieIsAlive) {
                 alive++;
             }
         }
-
         return alive;
     }
 
@@ -69,12 +71,12 @@ public class RoundHandler : MonoBehaviour {
         
         for (int i = 0; i < zombies; i++) {
             int zombieSelected = Random.Range(0, _baseZombies.Count);
-            _zombies.Add(_baseZombies[zombieSelected]);
+            _zombiesToSpawn.Add(_baseZombies[zombieSelected]);
         }
 
-        foreach (GameObject zombie in _zombies) {
+        foreach (GameObject zombie in _zombiesToSpawn) {
             GameObject spawner = _zombieSpawners[Random.Range(0, _zombieSpawners.Count)];
-            spawner.GetComponent<SpawnerScript>().SpawnZombie(zombie, zombieHealth);
+            _zombies.Add(spawner.GetComponent<SpawnerScript>().SpawnZombie(zombie, zombieHealth));
         }
 
         if (IsBossRound()) {
@@ -82,9 +84,9 @@ public class RoundHandler : MonoBehaviour {
             int bossHealth = CalculteBossHealth(zombieHealth);
 
             for (int i = 0; i < bosses; i++) {
-                _zombies.Add(_bossZombie);
+                _zombiesToSpawn.Add(_bossZombie);
                 GameObject spawner = _zombieSpawners[Random.Range(0, _zombieSpawners.Count)];
-                spawner.GetComponent<SpawnerScript>().SpawnZombie(_bossZombie, bossHealth);
+                _zombies.Add(spawner.GetComponent<SpawnerScript>().SpawnZombie(_bossZombie, bossHealth));
             }
         }
     }
@@ -119,9 +121,11 @@ public class RoundHandler : MonoBehaviour {
         }
 
         _zombies.Clear();
+        _zombiesToSpawn.Clear();
+
     }
 
-    private void ZombieDance() {
+    public void ZombieDance() {
         bool isAlive;
         ZombieHandler handler;
 
@@ -140,5 +144,39 @@ public class RoundHandler : MonoBehaviour {
             Round related
 
     ################################################## */
+
+    public void CheckZombiesLeft()
+    {
+        if(ZombiesAlive() == 0 )
+        {
+            StartCoroutine(EndRound());
+        }
+    }
+
+    public IEnumerator BeginNewRound(int round)
+    {
+        _currentRound = round;
+
+        textField.enabled = true;
+        textField.text = "Round " + round;
+
+        SpawnZombies();
+
+        yield return new WaitForSeconds(5);
+        textField.enabled = false;
+    }
+
+    public IEnumerator EndRound()
+    {
+        ZombieCleanUp();
+
+        textField.enabled = true;
+        textField.text = "Round complete!";
+
+        yield return new WaitForSeconds(5);
+
+        textField.enabled = true;
+        StartCoroutine(BeginNewRound(_currentRound + 1));
+    }
 
 }
