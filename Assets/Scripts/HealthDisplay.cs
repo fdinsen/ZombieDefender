@@ -26,15 +26,17 @@ public class HealthDisplay : MonoBehaviour
 
     private void FixedUpdate()
     {
-        healthText.text = playerHealth.GetHealth().ToString();
-        healthFill.fillAmount = (float)playerHealth.GetHealth() / playerHealth.GetMaxHealth();
-        
-        if (useHSVColor)
+        if(healthFill != null && healthText != null)
         {
-            float value = GetHSV(playerHealth.GetHealth(), playerHealth.GetMaxHealth(), 0, 125, 0);
-            healthFill.color = Color.HSVToRGB(value / 360, 1.0f, 1.0f);
-        }
+            healthText.text = playerHealth.GetHealth().ToString();
+            healthFill.fillAmount = (float)playerHealth.GetHealth() / playerHealth.GetMaxHealth();
 
+            if (useHSVColor)
+            {
+                float value = GetHSV(playerHealth.GetHealth(), playerHealth.GetMaxHealth(), 0, 125, 0);
+                healthFill.color = Color.HSVToRGB(value / 360, 1.0f, 1.0f);
+            }
+        }
     }
 
     private static float GetHSV(float value, float fromSource, float toSource, float fromTarget, float toTarget)

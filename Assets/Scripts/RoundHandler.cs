@@ -13,13 +13,18 @@ public class RoundHandler : MonoBehaviour {
     [SerializeField] private List<GameObject> _baseZombies = new List<GameObject>();
     [SerializeField] private int _bossRound; // Every x round, default: 5
     private int _zombieBaseHealth;
-    private List<GameObject> _zombieSpawners = new List<GameObject>();
+    public List<GameObject> _zombieSpawners = new List<GameObject>();
     private TMP_Text textField;
 
     // Start is called before the first frame update
     public void Start() {
         textField = GameObject.FindGameObjectWithTag("Text").GetComponent<TMP_Text>();
-        textField.enabled = false;
+        if(textField != null)
+        {
+            textField.enabled = false;
+            Debug.LogError("Please add prefab DefaultCanvas to the scene!!");
+        }
+
 
 
         _zombieSpawners.AddRange(GameObject.FindGameObjectsWithTag("ZombieSpawner"));
@@ -157,26 +162,44 @@ public class RoundHandler : MonoBehaviour {
     {
         _currentRound = round;
 
-        textField.enabled = true;
-        textField.text = "Round " + round;
+        if (textField != null)
+        {
 
-        SpawnZombies();
+            textField.enabled = true;
+            textField.text = "Round " + round;
 
-        yield return new WaitForSeconds(5);
-        textField.enabled = false;
+            SpawnZombies();
+
+            yield return new WaitForSeconds(5);
+            textField.enabled = false;
+        }else
+        {
+            SpawnZombies();
+
+            yield return new WaitForSeconds(5);
+        }
     }
 
     public IEnumerator EndRound()
     {
         ZombieCleanUp();
 
-        textField.enabled = true;
-        textField.text = "Round complete!";
+        if(textField != null) {
+            textField.enabled = true;
+            textField.text = "Round complete!";
 
-        yield return new WaitForSeconds(5);
+            yield return new WaitForSeconds(5);
 
-        textField.enabled = true;
-        StartCoroutine(BeginNewRound(_currentRound + 1));
+            textField.enabled = true;
+            StartCoroutine(BeginNewRound(_currentRound + 1));
+        }else 
+        {
+            yield return new WaitForSeconds(5);
+
+            StartCoroutine(BeginNewRound(_currentRound + 1));
+        }
+
+
     }
 
 }
