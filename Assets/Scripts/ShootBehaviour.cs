@@ -14,6 +14,7 @@ public class ShootBehaviour : MonoBehaviour
     [SerializeField] private float range = 100f;
     [SerializeField] private ParticleSystem muzzleFlash;
     [SerializeField] private GameObject impactEffect;
+    [SerializeField] private LayerMask hittableLayers = new LayerMask();
     
     
     private Camera cam;
@@ -45,12 +46,12 @@ public class ShootBehaviour : MonoBehaviour
         muzzleFlash.Play(); 
 
         RaycastHit hit;
-        if(Physics.Raycast(cam.transform.position, cam.transform.forward, out hit, range))
+        if(Physics.Raycast(cam.transform.position, cam.transform.forward, out hit, range, hittableLayers))
         {
-            Debug.Log(hit.transform.name);
+            //Debug.Log(hit.transform.name);
 
             if(hit.collider.gameObject.CompareTag("Enemy")) {
-                //Call take damage method on enemy
+                hit.collider.gameObject.GetComponent<ZombieHandler>().Damage(35);
             }
             GameObject impact = Instantiate(impactEffect, hit.point, Quaternion.LookRotation(hit.normal));
             Destroy(impact, 2f);

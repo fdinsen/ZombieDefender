@@ -31,6 +31,11 @@ public class ThirdPersonOrbitCamBasic : MonoBehaviour
 
 	void Awake()
 	{
+		if(player == null)
+        {
+			Debug.LogError("A reference to the player is missing from component Third Person Orbit Cam Basics on Main Camera.");
+        }
+
 		// Reference to the camera transform.
 		cam = transform;
 
