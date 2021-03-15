@@ -10,8 +10,11 @@ public class ZombieHandler : MonoBehaviour {
     private Animator _animator;
     private Rigidbody[] _rigidbodies;
     private int _health;
+    private BoxCollider _collider;
 
     private bool _destroy = false; // Used if "Start" failed
+
+    private RoundHandler _roundHandler; 
 
     // Start is called before the first frame update
     public void Start() {
@@ -19,6 +22,8 @@ public class ZombieHandler : MonoBehaviour {
         _navMeshAgent = this.GetComponent<UnityEngine.AI.NavMeshAgent>();
         _animator = this.GetComponent<Animator>();
         _rigidbodies = GetComponentsInChildren<Rigidbody>();
+        _collider = GetComponent<BoxCollider>();
+        _roundHandler = FindObjectOfType<RoundHandler>();
         _health = 50;
         
         if(_target == null) {
@@ -71,7 +76,6 @@ public class ZombieHandler : MonoBehaviour {
 
     public void SetHealth(int health) {
         _health = health;
-        Debug.Log(_health);
     }
 
     public void Damage(int damage) {
@@ -88,6 +92,8 @@ public class ZombieHandler : MonoBehaviour {
     }
 
     private void Die() {
+        _roundHandler.CheckZombiesLeft();
+        _collider.enabled = false;
         _animator.enabled = false;
         _navMeshAgent.speed = 0;
         GoRagdoll(true);
@@ -169,8 +175,9 @@ public class ZombieHandler : MonoBehaviour {
     ################################################## */
 
     public void StartDancing() {
+        Debug.Log("HEJJJ");
         _navMeshAgent.speed = 0;
-        _animator.SetTrigger("Dance");
+        _animator.SetTrigger("Victory");
     }
 
 }
