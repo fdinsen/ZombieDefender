@@ -17,12 +17,14 @@ public class AimBehaviourBasic : GenericBehaviour
 
 	private int aimBool;                                                  // Animator variable related to aiming.
 	private bool aim;                                                     // Boolean to determine whether or not the player is aiming.
+	private Light flashlight;
 
 	// Start is always called after any Awake functions.
 	void Start ()
 	{
 		// Set up the references.
 		aimBool = Animator.StringToHash("Aim");
+		flashlight = GameObject.FindGameObjectWithTag("Flashlight").GetComponent<Light>();
 	}
 
 	// Update is used to set features regardless the active behaviour.
@@ -77,6 +79,7 @@ public class AimBehaviourBasic : GenericBehaviour
 			aimPivotOffset.x = Mathf.Abs(aimPivotOffset.x) * signal;
 			StartCoroutine(MoveArmUp());
 			yield return new WaitForSeconds(0.1f);
+			flashlight.enabled = true;
 			behaviourManager.GetAnim.SetFloat(speedFloat, 0);
 			// This state overrides the active one.
 			behaviourManager.OverrideWithBehaviour(this);
@@ -88,6 +91,7 @@ public class AimBehaviourBasic : GenericBehaviour
 	{
 		aim = false;
 		yield return new WaitForSeconds(0.3f);
+		flashlight.enabled = false;
 		behaviourManager.GetCamScript.ResetTargetOffsets();
 		behaviourManager.GetCamScript.ResetMaxVerticalAngle();
 		StartCoroutine(MoveArmDown());

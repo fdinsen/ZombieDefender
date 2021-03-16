@@ -4,6 +4,9 @@ using UnityEngine;
 
 public class ZombieHandler : MonoBehaviour {
 
+    [SerializeField] private double lowerDamageMultiplier = 0.02f;
+    [SerializeField] private double upperDamageMultiplier = 0.05f;
+
     private float _speed;
     private Transform _target;
     private UnityEngine.AI.NavMeshAgent _navMeshAgent;
@@ -14,7 +17,10 @@ public class ZombieHandler : MonoBehaviour {
 
     private bool _destroy = false; // Used if "Start" failed
 
-    private RoundHandler _roundHandler; 
+    private RoundHandler _roundHandler;
+    private PlayerHealth _player;
+
+    private float spawnTimeout = 1;
 
     // Start is called before the first frame update
     public void Start() {
@@ -24,6 +30,7 @@ public class ZombieHandler : MonoBehaviour {
         _rigidbodies = GetComponentsInChildren<Rigidbody>();
         _collider = GetComponent<BoxCollider>();
         _roundHandler = FindObjectOfType<RoundHandler>();
+        _player = FindObjectOfType<PlayerHealth>();
         _health = 50;
         
         if(_target == null) {
@@ -65,6 +72,10 @@ public class ZombieHandler : MonoBehaviour {
     private void Update() {
         if (IsAlive()) {
             Move();
+        }
+        if(spawnTimeout >= 0)
+        {
+            spawnTimeout -= Time.deltaTime;
         }
     }
 
@@ -126,10 +137,13 @@ public class ZombieHandler : MonoBehaviour {
     private void Move() {
         _navMeshAgent.SetDestination(_target.position);
 
-        _distance = _navMeshAgent.remainingDistance - _navMeshAgent.stoppingDistance;
+        _distance = _navMeshAgent.GetPathRemainingDistance() - _navMeshAgent.stoppingDistance;
+        Debug.Log("Remaining Distance: " + _navMeshAgent.GetPathRemainingDistance());
+        //Debug.Log("Stopping Distance: " + _navMeshAgent.stoppingDistance);
         _notAttacking = _animator.GetCurrentAnimatorClipInfo(0)[0].clip.name != "Attack";
-
-        if(_distance <= 0) {
+        Debug.Log(spawnTimeout);
+        if(_distance <= 0 && spawnTimeout <= 0) {
+            Debug.Log("Distance: " + _distance);
             DoAttack(_notAttacking);
         } else if(_distance > 0 && _notAttacking) {
             _animator.SetFloat("Speed", _speed);
@@ -148,7 +162,11 @@ public class ZombieHandler : MonoBehaviour {
         }
 
         if(_isAttacking) {
-            // Call take damage method on Player
+            Debug.Log("Attacked");
+            int minDamage = System.Convert.ToInt32(_health * lowerDamageMultiplier);
+            int maxDamage = System.Convert.ToInt32(_health * upperDamageMultiplier);
+            int damage = Random.Range(minDamage, maxDamage);
+            _player.Damage(damage);
         }
     }
 

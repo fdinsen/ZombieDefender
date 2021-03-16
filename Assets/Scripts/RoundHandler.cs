@@ -49,7 +49,7 @@ public class RoundHandler : MonoBehaviour {
             _bossRound = 5;
         }
 
-        StartCoroutine(BeginNewRound(1));
+        StartCoroutine(BeginGame());
     }
 
     /* ##################################################
@@ -200,6 +200,20 @@ public class RoundHandler : MonoBehaviour {
             yield return new WaitForSeconds(5);
 
             StartCoroutine(BeginNewRound(_currentRound + 1));
+        }
+    }
+
+    public IEnumerator BeginGame()
+    {
+        if(textField != null)
+        {
+            textField.enabled = true;
+            for(int i = 5; i > 0; i--)
+            {
+                textField.text = "Game starting in " + i;
+                yield return new WaitForSeconds(1);
+            }
+            StartCoroutine(BeginNewRound(1));
         }
     }
 

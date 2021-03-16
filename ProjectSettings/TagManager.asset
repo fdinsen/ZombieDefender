@@ -8,6 +8,7 @@ TagManager:
   - ZombieSpawner
   - Text
   - RespawnScreen
+  - Flashlight
   layers:
   - Default
   - TransparentFX
