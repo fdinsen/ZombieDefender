@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
 
+
 public class RoundHandler : MonoBehaviour {
 
     // Round related
@@ -22,6 +23,8 @@ public class RoundHandler : MonoBehaviour {
         if(textField != null)
         {
             textField.enabled = false;
+        }else
+        {
             Debug.LogError("Please add prefab DefaultCanvas to the scene!!");
         }
 
@@ -198,8 +201,6 @@ public class RoundHandler : MonoBehaviour {
 
             StartCoroutine(BeginNewRound(_currentRound + 1));
         }
-
-
     }
 
 }

@@ -1,6 +1,8 @@
 using System.Collections;
 using System.Collections.Generic;
+using TMPro;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class PlayerHealth : MonoBehaviour
 {
@@ -9,11 +11,22 @@ public class PlayerHealth : MonoBehaviour
     [SerializeField] private Animator animator;
     [SerializeField] private Rigidbody rigid;
 
+    private TMP_Text respawnText;
     private RoundHandler roundHandler = null;
+    private bool dead = false;
 
     private void Start()
     {
         roundHandler = FindObjectOfType<RoundHandler>();
+
+        respawnText = GameObject.FindGameObjectWithTag("RespawnScreen").GetComponent<TMP_Text>();
+        if (respawnText != null)
+        {
+            respawnText.enabled = false;
+        }else
+        {
+            Debug.LogError("Please add prefab DefaultCanvas to the scene!!");
+        }
     }
 
     private void Update()
@@ -21,6 +34,10 @@ public class PlayerHealth : MonoBehaviour
         if(Input.GetKeyDown(KeyCode.H))
         {
             Damage(20);
+        }
+        if(dead && Input.GetKeyDown(KeyCode.Return))
+        {
+            Respawn();
         }
     }
 
@@ -62,6 +79,19 @@ public class PlayerHealth : MonoBehaviour
         animator.SetBool("Dead", true);
         roundHandler.ZombieDance();
         yield return new WaitForSeconds(2f);
+        dead = true;
+        DisplayRespawnText();
+    }
+
+    public void Respawn()
+    {
+        Scene scene = SceneManager.GetActiveScene();
+        SceneManager.LoadScene(scene.name);
+    }
+
+    private void DisplayRespawnText()
+    {
+        respawnText.enabled = true;
     }
 
 }

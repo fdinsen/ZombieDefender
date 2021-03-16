@@ -175,7 +175,6 @@ public class ZombieHandler : MonoBehaviour {
     ################################################## */
 
     public void StartDancing() {
-        Debug.Log("HEJJJ");
         _navMeshAgent.speed = 0;
         _animator.SetTrigger("Victory");
     }
