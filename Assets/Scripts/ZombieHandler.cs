@@ -119,17 +119,20 @@ public class ZombieHandler : MonoBehaviour {
 
     private void PlayAudioClip()
     {
-        if (_zombieClip != null && countdownToSound <= 0)
+        if (IsAlive())
         {
-            AudioSource.PlayClipAtPoint(_zombieClip, gameObject.transform.position);
-        }
-        if (countdownToSound > 0)
-        {
-            countdownToSound -= Random.Range(0.001f, 0.5f);
-        }
-        else
-        {
-            countdownToSound = Random.Range(20, 300);
+            if (_zombieClip != null && countdownToSound <= 0)
+            {
+                AudioSource.PlayClipAtPoint(_zombieClip, gameObject.transform.position);
+            }
+            if (countdownToSound > 0)
+            {
+                countdownToSound -= Random.Range(0.001f, 0.5f);
+            }
+            else
+            {
+                countdownToSound = Random.Range(20, 300);
+            }
         }
     }
 
