@@ -7606,6 +7606,7 @@ MonoBehaviour:
   hittableLayers:
     serializedVersion: 2
     m_Bits: 9
+  gunSound: {fileID: 8300000, guid: 1b766da7cc2d648aa84e36cb5fe8abcb, type: 3}
 --- !u!114 &1627823179
 MonoBehaviour:
   m_ObjectHideFlags: 0

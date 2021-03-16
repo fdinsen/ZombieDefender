@@ -3,9 +3,9 @@ using System.Collections.Generic;
 using UnityEngine;
 
 public class ZombieHandler : MonoBehaviour {
-
-    [SerializeField] private double lowerDamageMultiplier = 0.02f;
-    [SerializeField] private double upperDamageMultiplier = 0.05f;
+    [SerializeField] private double _lowerDamageMultiplier = 0.02f;
+    [SerializeField] private double _upperDamageMultiplier = 0.05f;
+    [SerializeField] private AudioClip _zombieClip;
 
     private float _speed;
     private Transform _target;
@@ -21,39 +21,25 @@ public class ZombieHandler : MonoBehaviour {
     private PlayerHealth _player;
 
     private float spawnTimeout = 1;
+    private float countdownToSound = 10;
+    private const double _attackDistance = 0.5;
+
 
     // Start is called before the first frame update
-    public void Start() {
-        _target = GameObject.FindGameObjectWithTag("Player").transform;
-        _navMeshAgent = this.GetComponent<UnityEngine.AI.NavMeshAgent>();
-        _animator = this.GetComponent<Animator>();
-        _rigidbodies = GetComponentsInChildren<Rigidbody>();
-        _collider = GetComponent<BoxCollider>();
-        _roundHandler = FindObjectOfType<RoundHandler>();
-        _player = FindObjectOfType<PlayerHealth>();
-        _health = 50;
-        
-        if(_target == null) {
-            Debug.LogError(gameObject.name + " couldn't locate a player!");
-            _destroy = true;
-        }
-        
-        if(_navMeshAgent == null) {
-            Debug.LogError(gameObject.name + " is missing a NavMeshAgent component!");
-            _destroy = true;
-        }
+    public void Start()
+    {
+        SetClassParameters();
+        CheckClassParameters();
 
-        if(_animator == null) {
-            Debug.LogError(gameObject.name + " is missing a Animator component!");
-            _destroy = true;
-        }
-
-        if(_destroy) {
+        if (_destroy)
+        {
             Destroy(gameObject);
         }
 
-        foreach (Rigidbody rb in _rigidbodies) {
-            if (rb.gameObject != gameObject) {
+        foreach (Rigidbody rb in _rigidbodies)
+        {
+            if (rb.gameObject != gameObject)
+            {
                 rb.useGravity = false;
                 rb.isKinematic = true;
             }
@@ -68,14 +54,82 @@ public class ZombieHandler : MonoBehaviour {
         _navMeshAgent.SetDestination(_target.position);
     }
 
-    // Update is called once per frame
-    private void Update() {
-        if (IsAlive()) {
+    // FixedUpdate is called 50 times per second
+    private void FixedUpdate()
+    {
+        if (IsAlive())
+        {
             Move();
         }
-        if(spawnTimeout >= 0)
+        DecrementSpawnTimeout();
+        PlayAudioClip();
+    }
+
+    /* ##################################################
+
+           Helper Methods
+
+   ################################################## */
+
+    private void SetClassParameters()
+    {
+        _target = GameObject.FindGameObjectWithTag("Player").transform;
+        _navMeshAgent = this.GetComponent<UnityEngine.AI.NavMeshAgent>();
+        _animator = this.GetComponent<Animator>();
+        _rigidbodies = GetComponentsInChildren<Rigidbody>();
+        _collider = GetComponent<BoxCollider>();
+        _roundHandler = FindObjectOfType<RoundHandler>();
+        _player = FindObjectOfType<PlayerHealth>();
+        _health = 50;
+    }
+
+    private void CheckClassParameters()
+    {
+        if (_target == null)
+        {
+            Debug.LogError(gameObject.name + " couldn't locate a player!");
+            _destroy = true;
+        }
+
+        if (_navMeshAgent == null)
+        {
+            Debug.LogError(gameObject.name + " is missing a NavMeshAgent component!");
+            _destroy = true;
+        }
+
+        if (_animator == null)
+        {
+            Debug.LogError(gameObject.name + " is missing a Animator component!");
+            _destroy = true;
+        }
+
+        if (_zombieClip == null)
+        {
+            Debug.LogError("No audioclip set for " + gameObject.name);
+        }
+    }
+
+    private void DecrementSpawnTimeout()
+    {
+        if (spawnTimeout >= 0)
         {
             spawnTimeout -= Time.deltaTime;
+        }
+    }
+
+    private void PlayAudioClip()
+    {
+        if (_zombieClip != null && countdownToSound <= 0)
+        {
+            AudioSource.PlayClipAtPoint(_zombieClip, gameObject.transform.position);
+        }
+        if (countdownToSound > 0)
+        {
+            countdownToSound -= Random.Range(0.001f, 0.5f);
+        }
+        else
+        {
+            countdownToSound = Random.Range(20, 300);
         }
     }
 
@@ -135,15 +189,12 @@ public class ZombieHandler : MonoBehaviour {
     private bool _notAttacking;
 
     private void Move() {
-        _navMeshAgent.SetDestination(_target.position);
+        float stoppingDistance = _navMeshAgent.stoppingDistance;
+        _navMeshAgent.SetDestination(new Vector3(_target.position.x, 0, _target.position.z));
 
-        _distance = _navMeshAgent.GetPathRemainingDistance() - _navMeshAgent.stoppingDistance;
-        Debug.Log("Remaining Distance: " + _navMeshAgent.GetPathRemainingDistance());
-        //Debug.Log("Stopping Distance: " + _navMeshAgent.stoppingDistance);
+        _distance = _navMeshAgent.GetPathRemainingDistance() - stoppingDistance;
         _notAttacking = _animator.GetCurrentAnimatorClipInfo(0)[0].clip.name != "Attack";
-        Debug.Log(spawnTimeout);
-        if(_distance <= 0 && spawnTimeout <= 0) {
-            Debug.Log("Distance: " + _distance);
+        if(_distance <= _attackDistance && _distance != (-1 - stoppingDistance) && spawnTimeout <= 0) {
             DoAttack(_notAttacking);
         } else if(_distance > 0 && _notAttacking) {
             _animator.SetFloat("Speed", _speed);
@@ -162,9 +213,8 @@ public class ZombieHandler : MonoBehaviour {
         }
 
         if(_isAttacking) {
-            Debug.Log("Attacked");
-            int minDamage = System.Convert.ToInt32(_health * lowerDamageMultiplier);
-            int maxDamage = System.Convert.ToInt32(_health * upperDamageMultiplier);
+            int minDamage = System.Convert.ToInt32(_health * _lowerDamageMultiplier);
+            int maxDamage = System.Convert.ToInt32(_health * _upperDamageMultiplier);
             int damage = Random.Range(minDamage, maxDamage);
             _player.Damage(damage);
         }

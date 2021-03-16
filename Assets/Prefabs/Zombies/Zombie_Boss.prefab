@@ -2948,7 +2948,7 @@ Transform:
   m_GameObject: {fileID: 9119730170358323791}
   m_LocalRotation: {x: 0, y: 1, z: 0, w: 0}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalScale: {x: 1.25, y: 1.25, z: 1.25}
   m_Children:
   - {fileID: 8483932068177692668}
   - {fileID: 6808378108835619816}
@@ -3008,6 +3008,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c2a4d29048ee25145a56905fe0b8e0ce, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _lowerDamageMultiplier: 0.019999999552965164
+  _upperDamageMultiplier: 0.05000000074505806
+  _zombieClip: {fileID: 8300000, guid: d108e9ae3908d4d479e1e41cca0188a3, type: 3}
 --- !u!65 &5179360997468603234
 BoxCollider:
   m_ObjectHideFlags: 0

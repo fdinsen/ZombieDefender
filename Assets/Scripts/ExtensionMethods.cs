@@ -12,6 +12,8 @@ public static class ExtensionMethods
             navMeshAgent.path.corners.Length == 0)
             return -1f;
 
+
+
         float distance = 0.0f;
         for (int i = 0; i < navMeshAgent.path.corners.Length - 1; ++i)
         {

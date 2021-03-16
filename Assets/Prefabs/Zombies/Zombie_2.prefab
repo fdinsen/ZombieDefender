@@ -2168,6 +2168,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c2a4d29048ee25145a56905fe0b8e0ce, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _lowerDamageMultiplier: 0.019999999552965164
+  _upperDamageMultiplier: 0.05000000074505806
+  _zombieClip: {fileID: 8300000, guid: d0dd5a8e1fcf88c4c990c0c54c58a2ea, type: 3}
 --- !u!65 &8100865435713881255
 BoxCollider:
   m_ObjectHideFlags: 0

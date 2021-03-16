@@ -15,6 +15,7 @@ public class ShootBehaviour : MonoBehaviour
     [SerializeField] private ParticleSystem muzzleFlash;
     [SerializeField] private GameObject impactEffect;
     [SerializeField] private LayerMask hittableLayers = new LayerMask();
+    [SerializeField] private AudioClip gunSound;
     
     
     private Camera cam;
@@ -24,6 +25,10 @@ public class ShootBehaviour : MonoBehaviour
     void Start()
     {
         cam = Camera.main;
+        if(gunSound == null)
+        {
+            Debug.LogError("Gunsound not set on player!");
+        }
     }
 
     // FixedUpdate is called 50 times per second
@@ -43,7 +48,8 @@ public class ShootBehaviour : MonoBehaviour
 
     void Shoot()
     {
-        muzzleFlash.Play(); 
+        muzzleFlash.Play();
+        AudioSource.PlayClipAtPoint(gunSound, gameObject.transform.position);
 
         RaycastHit hit;
         if(Physics.Raycast(cam.transform.position, cam.transform.forward, out hit, range, hittableLayers))
