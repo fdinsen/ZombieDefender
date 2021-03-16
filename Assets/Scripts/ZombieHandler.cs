@@ -6,6 +6,8 @@ public class ZombieHandler : MonoBehaviour {
     [SerializeField] private double _lowerDamageMultiplier = 0.02f;
     [SerializeField] private double _upperDamageMultiplier = 0.05f;
     [SerializeField] private AudioClip _zombieClip;
+    [SerializeField] private AudioClip _hurtClip;
+    [SerializeField] private AudioClip _deathClip;
 
     private float _speed;
     private Transform _target;
@@ -107,6 +109,15 @@ public class ZombieHandler : MonoBehaviour {
         {
             Debug.LogError("No audioclip set for " + gameObject.name);
         }
+
+        if(_hurtClip == null)
+        {
+            Debug.LogError("No hurt audioclip set for " + gameObject.name);
+        }
+        if(_deathClip == null)
+        {
+            Debug.LogError("No death audioclip set for " + gameObject.name);
+        }
     }
 
     private void DecrementSpawnTimeout()
@@ -148,6 +159,7 @@ public class ZombieHandler : MonoBehaviour {
 
     public void Damage(int damage) {
         if(_health > 0) {
+            AudioSource.PlayClipAtPoint(_hurtClip, gameObject.transform.position);
             _health -= damage;
             CheckHealth();
         }
@@ -160,6 +172,7 @@ public class ZombieHandler : MonoBehaviour {
     }
 
     private void Die() {
+        AudioSource.PlayClipAtPoint(_deathClip, gameObject.transform.position);
         _roundHandler.CheckZombiesLeft();
         _collider.enabled = false;
         _animator.enabled = false;

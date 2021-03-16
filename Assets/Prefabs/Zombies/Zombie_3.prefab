@@ -1403,6 +1403,8 @@ MonoBehaviour:
   _lowerDamageMultiplier: 0.019999999552965164
   _upperDamageMultiplier: 0.05000000074505806
   _zombieClip: {fileID: 8300000, guid: 27b98a8c68f991b408c5c6afff25358c, type: 3}
+  _hurtClip: {fileID: 8300000, guid: a4366158371c9514cae30cfff454dcb2, type: 3}
+  _deathClip: {fileID: 8300000, guid: 5cd921b91deac4f47b05c451951f7a53, type: 3}
 --- !u!65 &6600909161515662555
 BoxCollider:
   m_ObjectHideFlags: 0
