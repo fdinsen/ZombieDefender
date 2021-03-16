@@ -12,12 +12,12 @@ GameObject:
   - component: {fileID: 7751344122755773388}
   - component: {fileID: 177638406855877451}
   - component: {fileID: 7062936448720354776}
-  m_Layer: 0
+  m_Layer: 2
   m_Name: Invisible wall
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
+  m_StaticEditorFlags: 4294967295
   m_IsActive: 1
 --- !u!4 &4196815113345786045
 Transform:
@@ -109,7 +109,7 @@ GameObject:
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
+  m_StaticEditorFlags: 4294967295
   m_IsActive: 1
 --- !u!4 &8192829178396383258
 Transform:
@@ -224,7 +224,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1885982562620106547, guid: 1986d5d107d7c294e8ce17a028e611df, type: 3}
       propertyPath: m_LocalPosition.z
-      value: -9
+      value: -12
       objectReference: {fileID: 0}
     - target: {fileID: 1885982562620106547, guid: 1986d5d107d7c294e8ce17a028e611df, type: 3}
       propertyPath: m_LocalRotation.w
@@ -256,7 +256,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8563105794419175155, guid: 1986d5d107d7c294e8ce17a028e611df, type: 3}
       propertyPath: m_Name
-      value: Doorway
+      value: Doorway 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 8563105794419175155, guid: 1986d5d107d7c294e8ce17a028e611df, type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 4294967295
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 1986d5d107d7c294e8ce17a028e611df, type: 3}
@@ -283,6 +287,10 @@ PrefabInstance:
     - target: {fileID: 5629588652873275096, guid: 5dba42cfa97e1ae4c94daf887a045e72, type: 3}
       propertyPath: m_Name
       value: Hole in ground
+      objectReference: {fileID: 0}
+    - target: {fileID: 5629588652873275096, guid: 5dba42cfa97e1ae4c94daf887a045e72, type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 4294967295
       objectReference: {fileID: 0}
     - target: {fileID: 5629588652873275099, guid: 5dba42cfa97e1ae4c94daf887a045e72, type: 3}
       propertyPath: m_RootOrder
@@ -409,6 +417,10 @@ PrefabInstance:
     - target: {fileID: 6598778772960614907, guid: 25b853e77feb6164cac76ebf7b27385b, type: 3}
       propertyPath: m_Name
       value: 4x4 Roof and Floor (1)
+      objectReference: {fileID: 0}
+    - target: {fileID: 6598778772960614907, guid: 25b853e77feb6164cac76ebf7b27385b, type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 4294967295
       objectReference: {fileID: 0}
     - target: {fileID: 8094679070607439795, guid: 25b853e77feb6164cac76ebf7b27385b, type: 3}
       propertyPath: m_IsActive
@@ -537,6 +549,10 @@ PrefabInstance:
     - target: {fileID: 6598778772960614907, guid: 25b853e77feb6164cac76ebf7b27385b, type: 3}
       propertyPath: m_Name
       value: 4x4 Roof and Floor
+      objectReference: {fileID: 0}
+    - target: {fileID: 6598778772960614907, guid: 25b853e77feb6164cac76ebf7b27385b, type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 4294967295
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 25b853e77feb6164cac76ebf7b27385b, type: 3}
@@ -687,6 +703,10 @@ PrefabInstance:
     - target: {fileID: 5629588652873275096, guid: 5dba42cfa97e1ae4c94daf887a045e72, type: 3}
       propertyPath: m_Name
       value: Hole in ground (1)
+      objectReference: {fileID: 0}
+    - target: {fileID: 5629588652873275096, guid: 5dba42cfa97e1ae4c94daf887a045e72, type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 4294967295
       objectReference: {fileID: 0}
     - target: {fileID: 5629588652873275099, guid: 5dba42cfa97e1ae4c94daf887a045e72, type: 3}
       propertyPath: m_RootOrder
@@ -950,6 +970,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: 4x4 Roof and Floor
       objectReference: {fileID: 0}
+    - target: {fileID: 6598778772960614907, guid: 25b853e77feb6164cac76ebf7b27385b, type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 4294967295
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 25b853e77feb6164cac76ebf7b27385b, type: 3}
 --- !u!4 &4872425999519440147 stripped
@@ -978,7 +1002,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1885982562620106547, guid: 1986d5d107d7c294e8ce17a028e611df, type: 3}
       propertyPath: m_LocalPosition.z
-      value: 9
+      value: 12
       objectReference: {fileID: 0}
     - target: {fileID: 1885982562620106547, guid: 1986d5d107d7c294e8ce17a028e611df, type: 3}
       propertyPath: m_LocalRotation.w
@@ -1010,7 +1034,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8563105794419175155, guid: 1986d5d107d7c294e8ce17a028e611df, type: 3}
       propertyPath: m_Name
-      value: Doorway (1)
+      value: Doorway 1 (1)
+      objectReference: {fileID: 0}
+    - target: {fileID: 8563105794419175155, guid: 1986d5d107d7c294e8ce17a028e611df, type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 4294967295
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 1986d5d107d7c294e8ce17a028e611df, type: 3}

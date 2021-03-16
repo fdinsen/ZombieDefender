@@ -203,4 +203,9 @@ public class RoundHandler : MonoBehaviour {
         }
     }
 
+    public int GetCurrentRound()
+    {
+        return _currentRound;
+    }
+
 }

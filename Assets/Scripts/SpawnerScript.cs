@@ -16,4 +16,10 @@ public class SpawnerScript : MonoBehaviour {
         return go;
     }
 
+    void OnDrawGizmosSelected()
+    {
+        // Draw a yellow sphere at the transform's position
+        Gizmos.color = Color.red;
+        Gizmos.DrawSphere(transform.position, 1);
+    }
 }

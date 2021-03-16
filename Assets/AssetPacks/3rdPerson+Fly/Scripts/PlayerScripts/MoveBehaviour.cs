@@ -30,6 +30,7 @@ public class MoveBehaviour : GenericBehaviour
 		behaviourManager.SubscribeBehaviour(this);
 		behaviourManager.RegisterDefaultBehaviour(this.behaviourCode);
 		speedSeeker = runSpeed;
+		Cursor.visible = false;
 	}
 
 	// Update is used to set features regardless the active behaviour.

@@ -147,7 +147,7 @@ public class AimBehaviourBasic : GenericBehaviour
 					GUI.DrawTexture(new Rect(Screen.width / 2 - (crosshair.width * 0.5f),
 											 Screen.height / 2 - (crosshair.height * 0.5f),
 											 crosshair.width, crosshair.height), crosshair);
-			}catch(System.Exception e)
+			}catch(System.Exception)
             {
 				Debug.LogError("Camera needs a ThirdPersonOrbitCam script");
             }

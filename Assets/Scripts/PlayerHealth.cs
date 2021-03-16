@@ -92,6 +92,7 @@ public class PlayerHealth : MonoBehaviour
     private void DisplayRespawnText()
     {
         respawnText.enabled = true;
+        respawnText.text = "You Died on round " + roundHandler.GetCurrentRound()  + "!\nPress Enter to respawn!";
     }
 
 }
