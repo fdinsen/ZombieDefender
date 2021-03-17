@@ -12,7 +12,8 @@ Zombie Defender er en simpel Zombie Shooter, hvor man starter i midten af en rum
 <li>Animations, Animator</li>
 <li>3D Models</li>
 <li>Navigation</li>
-<li>Prefab</li>
+<li>Prefabs og Parenting</li>
+<li>Level Design</li>
 </ul>
 
 <h3>Hvem har lavet hvad</h3>
@@ -23,6 +24,7 @@ Zombie Defender er en simpel Zombie Shooter, hvor man starter i midten af en rum
 <li>Round-system</li>
 <li>Lyd effekter</li>
 <li>UI</li>
+<li>Prefabs og Parenting</li>
 </ul>
 <h4>Nicklas</h4>
 <ul>
@@ -34,10 +36,12 @@ Zombie Defender er en simpel Zombie Shooter, hvor man starter i midten af en rum
 <li>Round-system</li>
 <li>Zombie Dance (easter egg)</li>
 <li>Lyd effekter</li>
+<li>Prefabs og Parenting</li>
 </ul>
 <h4>Nikolaj</h4>
 <ul>
-<li>Map design + creation</li>
+<li>Level design + creation</li>
 <li>Map effects and particles</li>
 <li>Lighting</li>
+<li>Prefabs og Parenting</li>
 </ul>
