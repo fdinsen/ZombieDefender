@@ -31,6 +31,7 @@ public class MoveBehaviour : GenericBehaviour
 		behaviourManager.RegisterDefaultBehaviour(this.behaviourCode);
 		speedSeeker = runSpeed;
 		Cursor.visible = false;
+		Cursor.lockState = CursorLockMode.Locked;
 	}
 
 	// Update is used to set features regardless the active behaviour.
@@ -41,6 +42,12 @@ public class MoveBehaviour : GenericBehaviour
 		{
 			jump = true;
 		}
+
+		// A way to close the applicatin
+		if (Input.GetKey("escape"))
+        {
+            Application.Quit();
+        }
 	}
 
 	// LocalFixedUpdate overrides the virtual function of the base class.

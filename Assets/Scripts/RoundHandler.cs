@@ -109,8 +109,8 @@ public class RoundHandler : MonoBehaviour {
     }
 
     private int CalculateAmountOfBaseZombies() {
-        int baseAmount = 5;
-        int roundMultiplier = 2;
+        int baseAmount = 15;
+        int roundMultiplier = 3;
         return baseAmount + (_currentRound * roundMultiplier);
     }
 
