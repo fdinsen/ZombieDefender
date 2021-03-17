@@ -31,10 +31,6 @@ public class PlayerHealth : MonoBehaviour
 
     private void Update()
     {
-        if(Input.GetKeyDown(KeyCode.H))
-        {
-            Damage(20);
-        }
         if(dead && Input.GetKeyDown(KeyCode.Return))
         {
             Respawn();
